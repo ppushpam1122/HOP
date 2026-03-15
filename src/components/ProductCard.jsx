@@ -59,13 +59,13 @@ export default function ProductCard({ product, priority = false, colorQuery = nu
         {tag && <p className="product-tag mb-1">{tag}</p>}
 
         {/* Name */}
-        <h3 className="text-sm font-bold text-hop-black leading-snug line-clamp-1 mb-1">
+        <h3 className="text-xs sm:text-sm font-bold text-hop-black leading-snug line-clamp-2 mb-1">
           {product.name}
         </h3>
 
         {/* Price row */}
         <div className="flex items-baseline gap-2 mb-3">
-          <span className="text-sm font-bold text-hop-black">{formatPrice(product.price)}</span>
+          <span className="text-xs sm:text-sm font-bold text-hop-black">{formatPrice(product.price)}</span>
           {product.originalPrice && (
             <>
               <span className="text-xs text-neutral-400 line-through">{formatPrice(product.originalPrice)}</span>

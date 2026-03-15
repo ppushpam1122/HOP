@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Navbar from '@/components/Navbar';
 import ProductGallery from '@/components/ProductGallery';
 import ProductCard from '@/components/ProductCard';
+import Breadcrumb from '@/components/Breadcrumb';
 import {
   formatPrice,
   buildBreadcrumb,
@@ -15,7 +16,7 @@ import {
 } from '@/lib/productUtils';
 import { getAllSlugs, getProductBySlug, getAllProducts } from '@/lib/catalogLoader';
 
-const WHATSAPP_NUMBER = '917795037887';
+const WHATSAPP_NUMBER = '919999999999';
 const SIZE_ORDER = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
 const SIZE_GUIDE_DATA = [
@@ -253,9 +254,11 @@ export default function ProductPage({ product, related }) {
     product,
     colorName:      selectedColor?.name ?? 'N/A',
     size:           selectedSize  ?? 'N/A',
+    quantity,
     whatsappNumber: WHATSAPP_NUMBER,
     productPageUrl: mounted ? window.location.href : '',
   });
+  const breadcrumbs = buildBreadcrumb(product);
 
   // Collect unique fits from the product (or use product.fit directly)
   const fits = product.fit ? [product.fit] : [];
@@ -270,6 +273,11 @@ export default function ProductPage({ product, related }) {
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Breadcrumb */}
+        <div className="mb-5">
+          <Breadcrumb crumbs={breadcrumbs} />
+        </div>
+
         {/* ── Product layout ─────────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 
@@ -359,7 +367,7 @@ export default function ProductPage({ product, related }) {
               ADD TO CART
             </a>
             <a
-              href={`https://wa.me/917795037887?text=${encodeURIComponent(
+              href={`https://wa.me/919999999999?text=${encodeURIComponent(
                 `Hi, I want to buy: ${product.name} — ${formatPrice(product.price)}`
               )}`}
               target="_blank"
@@ -393,6 +401,9 @@ export default function ProductPage({ product, related }) {
                 {product.fit && (
                   <p><span className="font-semibold">Fit:</span> {product.fit}</p>
                 )}
+{product.design && (
+                  <p><span className="font-semibold">Design:</span> {product.design}</p>
+                )}
                 {product.subcategory && (
                   <p><span className="font-semibold">Style:</span> {product.subcategory.charAt(0).toUpperCase() + product.subcategory.slice(1)}</p>
                 )}
@@ -400,9 +411,9 @@ export default function ProductPage({ product, related }) {
               </div>
               {/* Tag pills */}
               <div className="flex flex-wrap gap-2">
-                {product.subcategory && (
+{product.design && (
                   <span className="border border-neutral-200 px-3 py-1 text-xs font-semibold text-neutral-600">
-                    Design: {product.subcategory.charAt(0).toUpperCase() + product.subcategory.slice(1)}
+                    Design: {product.design}
                   </span>
                 )}
                 {product.fit && (

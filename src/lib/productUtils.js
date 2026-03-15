@@ -46,6 +46,18 @@ export function getGalleryImages(product) {
 }
 
 /**
+ * Returns full-resolution image paths for the lightbox.
+ * Falls back to regular gallery images if fullImages not set.
+ * @param {Object} product
+ * @returns {string[]}
+ */
+export function getFullImages(product) {
+  const fullArr = product.fullImages || product.images || [];
+  if (fullArr.length === 0) return getGalleryImages(product);
+  return fullArr.map((f) => getImagePath(product.id, f));
+}
+
+/**
  * Formats a price in Indian Rupees.
  * @param {number} price
  * @returns {string}
@@ -84,7 +96,8 @@ export function buildWhatsAppLink({
   product,
   colorName,
   size,
-  whatsappNumber = '917795037887',
+  quantity = 1,
+  whatsappNumber = '919999999999',
   productPageUrl = '',
 }) {
   const lines = [
@@ -92,7 +105,8 @@ export function buildWhatsAppLink({
     `Product: ${product.name}`,
     `Color: ${colorName}`,
     `Size: ${size}`,
-    `Price: ${formatPrice(product.price)}`,
+    `Quantity: ${quantity}`,
+    `Price: ${formatPrice(product.price * quantity)}`,
   ];
 
   if (productPageUrl) {

@@ -191,7 +191,7 @@ const CONTENT = {
         <div>
           <p className="font-semibold text-neutral-800 mb-1">🔄 How to Initiate a Return</p>
           <p className="text-neutral-600 leading-relaxed">
-            Simply WhatsApp us at <strong>+91 77950 37887</strong> with your order details and reason
+            Simply WhatsApp us at <strong>+91 99999 99999</strong> with your order details and reason
             for return. We'll arrange a pickup at no extra cost for eligible returns.
             Refunds are processed within 5–7 business days after we receive the item.
           </p>
@@ -219,8 +219,8 @@ const CONTENT = {
                 </svg>
               ),
               label: 'WhatsApp',
-              value: '+91 77950 37887',
-              href: 'https://wa.me/917795037887',
+              value: '+91 99999 99999',
+              href: 'https://wa.me/919999999999',
               color: 'text-[#25D366]',
               bg: 'bg-[#25D366]/10',
             },

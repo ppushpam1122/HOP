@@ -13,6 +13,7 @@
   }
   body {
     @apply bg-hop-grey text-hop-black;
+    overflow-x: hidden;
   }
   * { @apply scroll-smooth; }
 }
@@ -123,3 +124,9 @@
   transition: width 0.25s ease;
 }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+/* Prevent SVG icons from expanding when Tailwind classes fail to load */
+svg {
+  max-width: 100%;
+  display: inline-block;
+}
