@@ -122,7 +122,7 @@ export default function HomePage({ featured }) {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}>
               {featured.map((product, i) => (
                 <ProductCard key={product.id} product={product} priority={i < 2} />
               ))}

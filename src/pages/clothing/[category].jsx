@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import ProductCard from '@/components/ProductCard';
 import Breadcrumb from '@/components/Breadcrumb';
 import FilterSidebar from '@/components/FilterSidebar';
+import SortDropdown from '@/components/SortDropdown';
 import MobileFilterOverlay from '@/components/MobileFilterOverlay';
 import { getAllProducts } from '@/lib/catalogLoader';
 import taxonomy from '@/data/taxonomy.json';
@@ -145,9 +146,7 @@ export default function CategoryPage({ category, products, categoryNode, isInter
             Filters {activeCount > 0 && `(${activeCount})`}
           </button>
           <div className="ml-auto flex items-center gap-3">
-            <select value={sort} onChange={(e) => setSort(e.target.value)} className="select-clean">
-              {SORT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-            </select>
+            <SortDropdown options={SORT_OPTIONS} value={sort} onChange={setSort} />
           </div>
         </div>
 
@@ -175,7 +174,7 @@ export default function CategoryPage({ category, products, categoryNode, isInter
           {/* Grid — takes all 1fr space, min-height prevents collapse */}
           <div className="min-h-[400px]">
             {filtered.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4" style={{minWidth:0}}>
+              <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", minWidth: 0 }}>
                 {filtered.map((p, i) => (
                   <ProductCard key={p.id} product={p} priority={i < 6} />
                 ))}

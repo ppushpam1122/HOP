@@ -53,8 +53,8 @@ export default function ProductCard({ product, priority = false, colorQuery = nu
         </button>
       </div>
 
-      {/* Info */}
-      <div className="p-3">
+      {/* Info — min-height so all cards are same total height */}
+      <div className="p-3" style={{ minHeight: 120 }}>
         {/* Tag */}
         {tag && <p className="product-tag mb-1">{tag}</p>}
 

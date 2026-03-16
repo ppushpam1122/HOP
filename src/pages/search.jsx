@@ -124,7 +124,8 @@ export default function SearchPage({ allProducts }) {
   const [query,    setQuery]   = useState('');
   const [results,  setResults]  = useState([]); // each entry: { product, score, matchedColor }
   const [searched, setSearched] = useState(false);
-  const [loading,  setLoading]  = useState(false);
+  const [loading,    setLoading]    = useState(false);
+  const [searchKey,  setSearchKey]  = useState(0); // bumped to force re-run same query
   const inputRef = useRef(null);
 
   // Sync query from URL on mount and when URL changes
@@ -144,7 +145,7 @@ export default function SearchPage({ allProducts }) {
       setSearched(false);
       setLoading(false);
     }
-  }, [router.query.q, allProducts]);
+  }, [router.query.q, allProducts, searchKey]);
 
   // Focus input on page load
   useEffect(() => {
@@ -153,9 +154,16 @@ export default function SearchPage({ allProducts }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (query.trim().length < 2) return;
+    const q = query.trim();
+    if (q.length < 2) return;
     setLoading(true);
-    router.push(`/search?q=${encodeURIComponent(query.trim())}`, undefined, { shallow: true });
+    const url = `/search?q=${encodeURIComponent(q)}`;
+    // If same URL, router.push won't fire query change — bump key to force useEffect
+    if (router.query.q === q) {
+      setSearchKey((k) => k + 1);
+    } else {
+      router.push(url, undefined, { shallow: true });
+    }
   };
 
   return (
@@ -180,9 +188,10 @@ export default function SearchPage({ allProducts }) {
               placeholder="Search for t-shirts, shirts, cotton, formal…"
               maxLength={50}
               className="w-full border border-neutral-200 bg-white px-5 py-3.5 pr-14
-                         text-sm text-neutral-800 placeholder-neutral-400
+                         text-neutral-800 placeholder-neutral-400
                          focus:outline-none focus:border-neutral-900
                          transition-colors"
+              style={{ fontSize: '16px' }}
             />
             <button
               type="submit"

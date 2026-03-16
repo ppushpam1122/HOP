@@ -63,7 +63,15 @@ export default function Navbar() {
     e.preventDefault();
     const q = searchQuery.trim();
     if (q.length < 2) return;
-    router.push(`/search?q=${encodeURIComponent(q)}`);
+    setSearchOpen(false);
+    setSearchQuery('');
+    // Use replace to force navigation even if URL is identical (same search term)
+    const url = `/search?q=${encodeURIComponent(q)}`;
+    if (router.asPath === url || router.asPath.startsWith('/search?q=' + encodeURIComponent(q))) {
+      router.replace(url);
+    } else {
+      router.push(url);
+    }
   };
 
   return (
@@ -167,7 +175,8 @@ export default function Navbar() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search t-shirts, linen, oversized…"
                   maxLength={50}
-                  className="flex-1 text-sm text-hop-black placeholder-neutral-400 bg-transparent border-none outline-none"
+                  className="flex-1 text-hop-black placeholder-neutral-400 bg-transparent border-none outline-none"
+                  style={{ fontSize: '16px' }}   /* prevent iOS zoom */
                 />
                 {searchQuery && (
                   <button type="button" onClick={() => setSearchQuery('')} className="text-neutral-300 hover:text-neutral-600">
